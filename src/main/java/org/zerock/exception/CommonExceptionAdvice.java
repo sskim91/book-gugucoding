@@ -16,7 +16,7 @@ public class CommonExceptionAdvice {
     public String except(Exception ex, Model model) {
 
         log.error("Exception ...." + ex.getMessage());
-        model.addAttribute("Exception", ex);
+        model.addAttribute("exception", ex);
         log.error(model);
         return "error_page";
     }
