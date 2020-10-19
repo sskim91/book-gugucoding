@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -17,12 +18,12 @@ import static org.junit.Assert.assertNotNull;
 public class BoardServiceTests {
 
     @Setter(onMethod_ = {@Autowired})
-    private BoardService boardService;
+    private BoardService service;
 
     @Test
     public void testExist() {
-        log.info(boardService);
-        assertNotNull(boardService);
+        log.info(service);
+        assertNotNull(service);
     }
 
     @Test
@@ -32,36 +33,37 @@ public class BoardServiceTests {
         boardVO.setContent("새로 작성하는 내용");
         boardVO.setWriter("newbie");
 
-        boardService.register(boardVO);
+        service.register(boardVO);
 
         log.info("생성된 게시물의 번호: " + boardVO.getBno());
     }
 
     @Test
     public void testGetList() {
-        boardService.getList().forEach(board -> log.info(board));
+//        boardService.getList().forEach(board -> log.info(board));
+        service.getList(new Criteria(2, 10)).forEach(board -> log.info(board));
     }
 
     @Test
     public void testGet() {
-        log.info(boardService.get(1L));
+        log.info(service.get(1L));
     }
 
     @Test
     public void testDelete() {
         //게시물의 번호의 존재 여부를 확인하고 테스트 할 것
-        log.info("REMOVE RESULT: "+ boardService.remove(2L));
+        log.info("REMOVE RESULT: "+ service.remove(2L));
     }
 
     @Test
     public void testUpdate() {
-        BoardVO boardVO = boardService.get(1L);
+        BoardVO boardVO = service.get(1L);
 
         if (boardVO == null) {
             return;
         }
 
         boardVO.setTitle("제목을 수정합니다.");
-        log.info("MODIFY RESULT: "+ boardService.modify(boardVO));
+        log.info("MODIFY RESULT: "+ service.modify(boardVO));
     }
 }
