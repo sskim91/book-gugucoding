@@ -15,7 +15,7 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
 
     //spring 4.3 이상에서 자동 처리
-    private BoardMapper mapper;
+    private final BoardMapper mapper;
 
     @Override
     public void register(BoardVO boardVO) {
