@@ -115,3 +115,24 @@ from (
          where ROWNUM <= 20
      )
 where rn > 10;
+
+
+-- 댓글 처리를 위한 테이블 생성과 처리
+create table tbl_reply(
+    rno number(10, 0),
+    bno number(10, 0) not null,
+    reply varchar2(1000) not null,
+    replyer varchar2(50) not null,
+    replyDate date default sysdate,
+    updateDate date default sysdate
+);
+
+create sequence seq_reply;
+
+alter table tbl_reply add constraint pk_reply primary key (rno);
+
+alter table tbl_reply add constraint fk_reply_board
+foreign key (bno) references tbl_board(bno);
+
+-- 최신 bno 번호 몇개 예제 확인
+select * from tbl_board where rownum < 10 order by bno desc;
