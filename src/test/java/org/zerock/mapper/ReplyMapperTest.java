@@ -76,4 +76,14 @@ public class ReplyMapperTest {
 
         replies.forEach(reply -> log.info("reply = " + reply));
     }
+
+    @Test
+    public void testList2() {
+        Criteria cri = new Criteria(2, 10);
+
+        //게시물번호확인
+        List<ReplyVO> replies = mapper.getListWithPaging(cri, bnoArr[0]);
+
+        replies.forEach(reply -> log.info("reply = " + reply));
+    }
 }

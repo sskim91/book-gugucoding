@@ -136,3 +136,25 @@ foreign key (bno) references tbl_board(bno);
 
 -- 최신 bno 번호 몇개 예제 확인
 select * from tbl_board where rownum < 10 order by bno desc;
+
+--index 생성
+create index idx_reply on tbl_reply (bno desc, rno asc);
+
+-- 인덱스를 이용한 페이징 쿼리
+select /*_INDEX(tbl_reply idx_reply) */
+    rownum rn, bno, rno, reply, replyer, replyDate, updatedate
+    from tbl_reply
+    where bno = 3145745 --(게시물번호)
+    and rno >0
+
+-- 10개씩 2페이지
+select rno, bno, reply, replyer, replydate, updatedate
+from
+    (
+        select /*+INDEX(tbl_reply idx_reply) */
+            rownum rn, bno, rno, reply, replyer, replyDate, updatedate
+        from tbl_reply
+        where bno = -- 게시물 번호
+            and rno >0
+            and rownum <= 20
+    ) where rn > 10

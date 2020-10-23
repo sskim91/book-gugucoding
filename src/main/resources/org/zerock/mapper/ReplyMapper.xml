@@ -27,4 +27,10 @@
         where bno = #{bno}  --@param의 값이 들어간다.
         order by rno asc
     </select>
+
+    <select id="getCountByBno" resultType="int">
+        <![CDATA[
+            select count(rno) from tbl_reply where bno = #{bno}
+        ]]>
+    </select>
 </mapper>
