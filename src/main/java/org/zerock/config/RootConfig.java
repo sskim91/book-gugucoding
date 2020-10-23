@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan(basePackages = {"org.zerock.sample"})
+@ComponentScan(basePackages = {"org.zerock.sample", "org.zerock.service", "org.zerock.aop"})
 @MapperScan(basePackages = {"org.zerock.mapper"})
 public class RootConfig {
 
