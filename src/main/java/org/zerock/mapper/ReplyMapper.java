@@ -1,22 +1,21 @@
 package org.zerock.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
-import org.zerock.domain.ReplyVo;
+import org.zerock.domain.ReplyVO;
 
 import java.util.List;
 
 public interface ReplyMapper {
 
-    public int insert(ReplyVo vo);
+    public int insert(ReplyVO vo);
 
-    public ReplyVo read(Long rno);
+    public ReplyVO read(Long rno);
 
     public int delete(Long rno);
 
-    public int update(ReplyVo vo);
+    public int update(ReplyVO vo);
 
-    public List<ReplyVo> getListWithPaging(@Param("cri") Criteria cri, @Param("bno") Long bno);
+    public List<ReplyVO> getListWithPaging(@Param("cri") Criteria cri, @Param("bno") Long bno);
 
 }

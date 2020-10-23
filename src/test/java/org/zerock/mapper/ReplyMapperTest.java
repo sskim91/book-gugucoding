@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zerock.domain.Criteria;
-import org.zerock.domain.ReplyVo;
+import org.zerock.domain.ReplyVO;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -35,7 +35,7 @@ public class ReplyMapperTest {
     @Test
     public void testCreate() {
         IntStream.rangeClosed(0, 10).forEach(i ->{
-            ReplyVo vo = new ReplyVo();
+            ReplyVO vo = new ReplyVO();
             //게시물의 번호
             vo.setBno(bnoArr[i % 5]);
             vo.setReply("댓글 테스트 " + i);
@@ -48,7 +48,7 @@ public class ReplyMapperTest {
     @Test
     public void testRead() {
         Long targetRno = 5L;
-        ReplyVo vo = mapper.read(targetRno);
+        ReplyVO vo = mapper.read(targetRno);
         log.info(vo);
     }
 
@@ -61,7 +61,7 @@ public class ReplyMapperTest {
     @Test
     public void testUpdate() {
         Long targetRno = 10L;
-        ReplyVo vo = mapper.read(targetRno);
+        ReplyVO vo = mapper.read(targetRno);
         vo.setReply("Update Reply");
         int count = mapper.update(vo);
         log.info("UPDATE COUNT: " + count);
@@ -72,7 +72,7 @@ public class ReplyMapperTest {
         Criteria cri = new Criteria();
 
         //게시물번호확인
-        List<ReplyVo> replies = mapper.getListWithPaging(cri, bnoArr[0]);
+        List<ReplyVO> replies = mapper.getListWithPaging(cri, bnoArr[0]);
 
         replies.forEach(reply -> log.info("reply = " + reply));
     }

@@ -8,7 +8,7 @@ import java.util.Date;
  * @author sskim
  */
 @Data
-public class ReplyVo {
+public class ReplyVO {
 
     private Long rno;
     private Long bno;   //fk
