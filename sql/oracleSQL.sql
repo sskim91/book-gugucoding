@@ -158,3 +158,8 @@ from
             and rno >0
             and rownum <= 20
     ) where rn > 10
+
+--471쪽
+create table tbl_sample1(col1 varchar2(500));
+
+create table tbl_sample2(col2 varchar2(50));

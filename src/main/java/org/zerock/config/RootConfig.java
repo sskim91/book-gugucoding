@@ -8,12 +8,17 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan(basePackages = {"org.zerock.sample", "org.zerock.service", "org.zerock.aop"})
 @MapperScan(basePackages = {"org.zerock.mapper"})
+@EnableAspectJAutoProxy
+@EnableTransactionManagement
 public class RootConfig {
 
     @Bean   //XML의 <bean>태그와 같음
@@ -39,6 +44,11 @@ public class RootConfig {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource());
         return (SqlSessionFactory) sqlSessionFactoryBean.getObject();
+    }
+
+    @Bean
+    public DataSourceTransactionManager txManager() {
+        return new DataSourceTransactionManager(dataSource());
     }
 
 }
