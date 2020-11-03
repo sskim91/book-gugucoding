@@ -49,10 +49,24 @@ public class BoardServiceImpl implements BoardService {
         return mapper.read(bno);
     }
 
+    @Transactional
     @Override
     public boolean modify(BoardVO boardVO) {
         log.info("modify...." + boardVO);
-        return mapper.update(boardVO) == 1;
+        attachMapper.deleteAll(boardVO.getBno());
+
+        boolean modifyResult = mapper.update(boardVO) == 1;
+
+        if (modifyResult && boardVO.getAttachList().size() > 0) {
+
+            boardVO.getAttachList().forEach(attach -> {
+
+                attach.setBno(boardVO.getBno());
+                attachMapper.insert(attach);
+            });
+        }
+
+        return modifyResult;
     }
 
     @Transactional
@@ -85,6 +99,6 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<BoardAttachVO> getAttachList(Long bno) {
         log.info("get Attach list by bno" + bno);
-		return attachMapper.findByBno(bno);
+        return attachMapper.findByBno(bno);
     }
 }
