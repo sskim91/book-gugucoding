@@ -16,6 +16,9 @@ import org.zerock.service.BoardService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -128,7 +131,13 @@ public class BoardController {
     public String remove(@RequestParam("bno") Long bno, Criteria cri, RedirectAttributes rttr) {
 
         log.info("remove..." + bno);
+
+        List<BoardAttachVO> attachList = service.getAttachList(bno);
+
         if (service.remove(bno)) {
+            // delete Attach Files
+            deleteFiles(attachList);
+
             rttr.addFlashAttribute("result", "success");
         }
 
@@ -144,5 +153,33 @@ public class BoardController {
 
         return new ResponseEntity<>(service.getAttachList(bno), HttpStatus.OK);
 
+    }
+
+    private void deleteFiles(List<BoardAttachVO> attachList) {
+
+        if (attachList == null || attachList.size() == 0) {
+            return;
+        }
+
+        log.info("delete attach files...................");
+        log.info(attachList);
+
+        attachList.forEach(attach -> {
+            try {
+                Path file = Paths.get("C:\\upload\\" + attach.getUploadPath() + "\\" + attach.getUuid() + "_" + attach.getFileName());
+
+                Files.deleteIfExists(file);
+
+                if (Files.probeContentType(file).startsWith("image")) {
+
+                    Path thumbNail = Paths.get("C:\\upload\\" + attach.getUploadPath() + "\\s_" + attach.getUuid() + "_" + attach.getFileName());
+
+                    Files.delete(thumbNail);
+                }
+
+            } catch (Exception e) {
+                log.error("delete file error" + e.getMessage());
+            }//end catch
+        });//end foreachd
     }
 }
