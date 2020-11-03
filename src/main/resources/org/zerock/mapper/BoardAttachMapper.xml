@@ -17,9 +17,10 @@
 
 	</delete>
 
-	<select id="findByBno"
-		resultType="org.zerock.domain.BoardAttachVO">
+	<select id="findByBno" resultType="org.zerock.domain.BoardAttachVO">
+
 		select * from tbl_attach where bno = #{bno}
+
 	</select>
 
 	<delete id="deleteAll">
@@ -28,8 +29,7 @@
 
 	</delete>
 
-	<select id="getOldFiles"
-		resultType="org.zerock.domain.BoardAttachVO">
+	<select id="getOldFiles" resultType="org.zerock.domain.BoardAttachVO">
 
 		select * from tbl_attach where uploadpath = to_char(sysdate -1 ,'yyyy\mm\dd')
 
