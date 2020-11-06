@@ -113,4 +113,22 @@ public class SampleController {
 
         return new ResponseEntity<>(msg, headers, HttpStatus.OK);
     }
+
+    /**
+     * Security  부분
+     */
+    @GetMapping("/all")
+    public void doAll() {
+        log.info("do all can access everybody");
+    }
+
+    @GetMapping("/member")
+    public void doMember() {
+        log.info("logined member");
+    }
+
+    @GetMapping("/admin")
+    public void doAdmin() {
+        log.info("admin only");
+    }
 }
