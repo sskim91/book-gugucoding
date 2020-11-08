@@ -40,6 +40,16 @@ public class ReplyController {
                 : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @GetMapping(value = "/{rno}",
+            produces = {MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<ReplyVO> get(@PathVariable("rno") Long rno) {
+
+        log.info("get: " + rno);
+
+        return new ResponseEntity<>(service.get(rno), HttpStatus.OK);
+    }
+
     @GetMapping(value = "/pages/{bno}/{page}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<ReplyPageDTO> getList(
             @PathVariable("page") int page,

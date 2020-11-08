@@ -20,7 +20,8 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
 
     //spring 4.3 이상에서 자동 처리
-    private final BoardMapper mapper;
+    @Setter(onMethod_ = @Autowired)
+    private BoardMapper mapper;
 
     @Setter(onMethod_ = @Autowired)
     private BoardAttachMapper attachMapper;
@@ -57,13 +58,14 @@ public class BoardServiceImpl implements BoardService {
 
         boolean modifyResult = mapper.update(boardVO) == 1;
 
-        if (modifyResult && boardVO.getAttachList().size() > 0) {
+        if (modifyResult && boardVO.getAttachList() != null) {
+            if (boardVO.getAttachList().size() > 0) {
+                boardVO.getAttachList().forEach(attach -> {
 
-            boardVO.getAttachList().forEach(attach -> {
-
-                attach.setBno(boardVO.getBno());
-                attachMapper.insert(attach);
-            });
+                    attach.setBno(boardVO.getBno());
+                    attachMapper.insert(attach);
+                });
+            }
         }
 
         return modifyResult;

@@ -1,5 +1,6 @@
 package org.zerock.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,6 @@ import org.zerock.domain.Criteria;
 import org.zerock.domain.PageDTO;
 import org.zerock.service.BoardService;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 import java.nio.file.Files;
@@ -25,10 +25,10 @@ import java.util.List;
 @Controller
 @Log4j
 @RequestMapping("/board/*")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BoardController {
 
-    private BoardService service;
+    private final BoardService service;
 
     @GetMapping("/register")
     @PreAuthorize("isAuthenticated()")
@@ -110,7 +110,7 @@ public class BoardController {
 
     @PreAuthorize("principal.username == #board.writer")
     @PostMapping("/modify")
-    public String modify(BoardVO board, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
+    public String modify(BoardVO board, Criteria cri, RedirectAttributes rttr) {
         log.info("modify:" + board);
 
         if (service.modify(board)) {
@@ -133,7 +133,7 @@ public class BoardController {
 
     @PreAuthorize("principal.username == #writer")
     @PostMapping("/remove")
-    public String remove(@RequestParam("bno") Long bno, Criteria cri, RedirectAttributes rttr) {
+    public String remove(@RequestParam("bno") Long bno, Criteria cri, RedirectAttributes rttr, String writer) {
 
         log.info("remove..." + bno);
 

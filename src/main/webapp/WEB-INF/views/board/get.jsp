@@ -450,6 +450,7 @@
 		$(".chat").on("click", "li", function (e) {
 
 			var rno = $(this).data("rno");
+			var page = 1;
 
 			replyService.get(rno, function (reply) {
 
