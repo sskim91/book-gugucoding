@@ -49,10 +49,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/sample/member").access("hasRole('ROLE_MEMBER')");
 
         //로그인설정
+//        http.formLogin()
+//                .loginPage("/customLogin")
+//                .loginProcessingUrl("/login")
+//                .successHandler(loginSuccessHandler());
         http.formLogin()
                 .loginPage("/customLogin")
-                .loginProcessingUrl("/login")
-                .successHandler(loginSuccesHandler());
+                .loginProcessingUrl("/login");
 
         //로그아웃설정
         http.logout()
@@ -68,10 +71,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Bean
-    public AuthenticationSuccessHandler loginSuccesHandler() {
-        return new CustomLoginSuccessHandler();
-    }
+//    @Bean
+//    public AuthenticationSuccessHandler loginSuccessHandler() {
+//        return new CustomLoginSuccessHandler();
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

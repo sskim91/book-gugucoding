@@ -62,7 +62,7 @@ from tbl_board;
 
 -- FULL 힌트
 select /*+ FULL(tbl_board) */ *
-from tbl_boardorder by bno desc;
+from tbl_board order by bno desc;
 
 -- INDEX_ASC/DESC 힌트
 select /*+ INDEX_ASC(tbl_board pk_board) */ *
@@ -154,10 +154,10 @@ from
         select /*+INDEX(tbl_reply idx_reply) */
             rownum rn, bno, rno, reply, replyer, replyDate, updatedate
         from tbl_reply
-        where bno = -- 게시물 번호
+        where bno = 1-- 게시물 번호
             and rno >0
             and rownum <= 20
-    ) where rn > 10
+    ) where rn > 10;
 
 --471쪽
 create table tbl_sample1(col1 varchar2(500));

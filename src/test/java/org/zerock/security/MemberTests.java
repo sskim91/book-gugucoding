@@ -23,7 +23,7 @@ import org.zerock.config.SecurityConfig;
 public class MemberTests {
 
     @Setter(onMethod_ = @Autowired)
-    private PasswordEncoder pwencoder;
+    private PasswordEncoder pwEncoder;
 
     @Setter(onMethod_ = @Autowired)
     private DataSource ds;
@@ -42,7 +42,7 @@ public class MemberTests {
                 con = ds.getConnection();
                 pstmt = con.prepareStatement(sql);
 
-                pstmt.setString(2, pwencoder.encode("pw" + i));
+                pstmt.setString(2, pwEncoder.encode("pw" + i));
 
                 if (i < 80) {
 
