@@ -165,7 +165,7 @@ create table tbl_sample1(col1 varchar2(500));
 create table tbl_sample2(col2 varchar2(50));
 
 --480쪽
-alert table tbl_board add(replycnt number default 0);
+alter table tbl_board add(replycnt number default 0);
 
 update tbl_board set replycnt = (select count(rno) from tbl_reply where tbl_reply.bno = tbl_board.bno);
 
@@ -226,4 +226,12 @@ create table tbl_member_auth (
      userid varchar2(50) not null,
      auth varchar2(50) not null,
      constraint fk_member_auth foreign key(userid) references tbl_member(userid)
+);
+
+-- 데이터베이스를 이용하는 자동 로그인
+create table persistent_logins(
+    username varchar(64) not null,
+    series varchar(64) primary key ,
+    token varchar(64) not null,
+    last_used timestamp not null
 );

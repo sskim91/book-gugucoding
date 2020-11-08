@@ -14,12 +14,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
+import org.zerock.config.RootConfig;
+import org.zerock.config.SecurityConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({
-        "file:src/main/webapp/WEB-INF/spring/root-context.xml",
-        "file:src/main/webapp/WEB-INF/spring/security-context.xml"
-})
+@ContextConfiguration(classes = {RootConfig.class, SecurityConfig.class})
 @Log4j
 public class MemberTests {
 
