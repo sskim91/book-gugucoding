@@ -101,7 +101,7 @@ public class UploadController {
             uploadFileName = uuid.toString() + "_" + uploadFileName;
 
             try {
-                File saveFile = new File(uploadFolder, uploadFileName);
+                File saveFile = new File(uploadPath, uploadFileName);
                 multipartFile.transferTo(saveFile);
 
                 attachFileDTO.setUuid(uuid.toString());
