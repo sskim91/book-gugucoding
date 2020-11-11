@@ -181,6 +181,8 @@ public class UploadController {
                 downloadName = new String(resourceOriginalName.getBytes("UTF-8"), "ISO-8859-1");
             }
 
+            log.info("downloadName = " + downloadName);
+
             headers.add("Content-Disposition", "attachment; filename=" + downloadName);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
