@@ -149,9 +149,9 @@ public class UploadController {
     }
 
     @GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String filename) {
-        log.info("filename = " + filename);
-        Resource resource = new FileSystemResource("c:\\upload\\" + filename);
+    public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName) {
+        log.info("filename = " + fileName);
+        Resource resource = new FileSystemResource("c:\\upload\\" + fileName);
         log.info("resource = " + resource);
 
         if (resource.exists() == false) {
